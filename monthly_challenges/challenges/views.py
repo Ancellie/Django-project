@@ -14,7 +14,7 @@ monthly_challenges = {
     "august": "Set aside 20 minutes each day to learn coding techniques.",
     "september": "Commit to coding for 20 minutes a day to boost your knowledge.",
     "october": "Learn coding for 20 minutes every day to stay consistent.",
-    "november": "Spend 20 minutes a day coding to continue your programming journey.",
+    "november": None,
     "december": "Dedicate 20 minutes a day to coding, even during the holidays!"
 }
 
@@ -25,13 +25,9 @@ def index(request):
     list_items = ""
     months = list(monthly_challenges.keys())
 
-    for month in months:
-        capitalized_month = month.capitalize()
-        month_path = reverse("month-challenge", args=[month])
-        list_items += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
-
-    response_data = f"<ul>{list_items}</ul>"
-    return HttpResponse(response_data)
+    return render(request, "challenges/index.html", {
+        "months": months
+    })
 
 def monthly_challenge_by_number(request, month):
     months = list(monthly_challenges.keys())
@@ -46,7 +42,7 @@ def monthly_challenge(request, month):
         challenge_text = monthly_challenges[month.lower()]
         return render(request, "challenges/challenge.html", {
             "challenge_text": challenge_text,
-            "month": month.capitalize()
+            "month": month
         })
     except:
         return HttpResponseNotFound("<h1>Page not found</h1>")
