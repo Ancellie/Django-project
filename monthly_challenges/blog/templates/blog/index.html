@@ -1,9 +1,40 @@
 {% extends "base_blog.html" %}
+{% load static %}
 
 {% block title %}
     Naz Blog
 {% endblock %}
 
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/post.css' %}"/>
+    <link rel="stylesheet" href="{% static 'blog/index.css' %}"/>
+{% endblock %}
+
 {% block content %}
-    <h1>Welcome to Naz blog</h1>
+    <section id="welcome">
+        <header>
+            <img src="{% static 'blog/images/me.jpg' %}" alt="Naz - The autor of this Blog"/>
+            <h2>Naz's Blog</h2>
+        </header>
+        <p>Hi, I am Naz, and I am not a blogger.</p>
+    </section>
+
+    <section id="latest-posts">
+        <h2>My Latest Thoughts</h2>
+        <ul>
+            {% for post in posts %}
+                {%  include "blog/includes/post.html" %}
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="about">
+        <h2>What I do</h2>
+        <p>
+            I am a web developer, and I love to write about my experiences and my learnings.
+        </p>
+        <p>
+            I am also a hiker, and I love to hike in the mountains.
+        </p>
+    </section>
 {% endblock %}
